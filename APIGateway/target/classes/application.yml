@@ -1,0 +1,26 @@
+
+#when a user mentions the path as mentioned in predicate, it will be redirected to the url mentioned in url value above predicates which will redirect to user-service or contact-service applications
+
+spring:
+  application:
+    name: contacts-api-gateway
+
+  ##GATEWAY CONFIGURATIONS
+  cloud:
+    gateway:
+      routes:
+        ## USER SERVICE
+        - id: User-Service
+          uri: lb://User-Service
+          predicates:
+            - Path=/user/**
+          
+        
+        - id: Contact-Service
+          uri: lb://Contact-Service
+          predicates:
+            - Path=/contacts/**
+          
+
+server:
+  port: 8082
